@@ -1,23 +1,23 @@
 <?php
 /**
- * WPMovieLibrary-LightBox
+ * WPMovieLibrary-Trailers
  *
- * @package   WPMovieLibrary-LightBox
+ * @package   WPMovieLibrary-Trailers
  * @author    Charlie MERLAND <charlie@caercam.org>
  * @license   GPL-3.0
  * @link      http://www.caercam.org/
  * @copyright 2014 Charlie MERLAND
  */
 
-if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
+if ( ! class_exists( 'WPMovieLibrary_Trailers' ) ) :
 
 	/**
 	* Plugin class
 	*
-	* @package WPMovieLibrary-LightBox
+	* @package WPMovieLibrary-Trailers
 	* @author  Charlie MERLAND <charlie@caercam.org>
 	*/
-	class WPMovieLibrary_LightBox {
+	class WPMovieLibrary_Trailers {
 
 		/**
 		 * Initialize the plugin by setting localization and loading public scripts
@@ -41,7 +41,7 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-			//add_filters( '', array( $this, 'add_pposter_lightbox' ) );
+			add_filter( 'wpml_template_content', array( $this, 'add_lightbox' ), 10, 4 );
 		}
 
 		/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -52,15 +52,6 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 
 		/**
 		 * Fired when the plugin is activated.
-		 * 
-		 * Restore previously converted contents. If WPML was previously
-		 * deactivated or uninstalled using the 'convert' option, Movies and
-		 * Custom Taxonomies should still be in the database. If they are, we
-		 * convert them back to WPML contents.
-		 * 
-		 * Call Movie Custom Post Type and Collections, Genres and Actors custom
-		 * Taxonomies' registering functions and flush rewrite rules to update
-		 * the permalinks.
 		 *
 		 * @since    1.0
 		 *
@@ -135,7 +126,7 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 		 */
 		public function enqueue_styles() {
 
-			wp_enqueue_style( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/css/lightbox.min.css', array(), WPMLLB_VERSION );
+			//wp_enqueue_style( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/css/lightbox.min.css', array(), WPMLLB_VERSION );
 		}
 
 		/**
@@ -145,9 +136,11 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 		 */
 		public function enqueue_scripts() {
 
-			wp_enqueue_script( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/js/lightbox.min.js', array(), WPMLLB_VERSION, true );
+			//wp_enqueue_script( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/js/lightbox.min.js', array(), WPMLLB_VERSION, true );
 			//wp_enqueue_script( WPMLLB_SLUG . '-js', WPMLLB_URL . '/assets/js/wpml-lightbox.js', array( WPMLLB_SLUG . '-lightbox' ), WPMLLB_VERSION, true );
 		}
+
+		
 
 		/**
 		 * Initializes variables
