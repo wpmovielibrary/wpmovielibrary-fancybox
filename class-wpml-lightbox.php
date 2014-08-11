@@ -1,23 +1,31 @@
 <?php
 /**
- * WPMovieLibrary-Trailers
+ * WPMovieLibrary-LightBox
  *
- * @package   WPMovieLibrary-Trailers
+ * @package   WPMovieLibrary-LightBox
  * @author    Charlie MERLAND <charlie@caercam.org>
  * @license   GPL-3.0
  * @link      http://www.caercam.org/
  * @copyright 2014 Charlie MERLAND
  */
 
-if ( ! class_exists( 'WPMovieLibrary_Trailers' ) ) :
+if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 
 	/**
 	* Plugin class
 	*
-	* @package WPMovieLibrary-Trailers
+	* @package WPMovieLibrary-LightBox
 	* @author  Charlie MERLAND <charlie@caercam.org>
 	*/
-	class WPMovieLibrary_Trailers {
+	class WPMovieLibrary_LightBox {
+
+		protected static $readable_properties  = array();
+
+		protected static $writeable_properties = array();
+
+		protected $modules;
+
+		protected $widgets;
 
 		/**
 		 * Initialize the plugin by setting localization and loading public scripts
@@ -25,7 +33,7 @@ if ( ! class_exists( 'WPMovieLibrary_Trailers' ) ) :
 		 *
 		 * @since     1.0
 		 */
-		public function __construct() {
+		protected function __construct() {
 
 			$this->register_hook_callbacks();
 		}
@@ -37,11 +45,12 @@ if ( ! class_exists( 'WPMovieLibrary_Trailers' ) ) :
 		 */
 		public function register_hook_callbacks() {
 
+			// Load plugin text domain
+			add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
+
 			// Enqueue scripts and styles
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-
-			add_filter( 'wpml_template_content', array( $this, 'add_lightbox' ), 10, 4 );
 		}
 
 		/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -52,6 +61,15 @@ if ( ! class_exists( 'WPMovieLibrary_Trailers' ) ) :
 
 		/**
 		 * Fired when the plugin is activated.
+		 * 
+		 * Restore previously converted contents. If WPML was previously
+		 * deactivated or uninstalled using the 'convert' option, Movies and
+		 * Custom Taxonomies should still be in the database. If they are, we
+		 * convert them back to WPML contents.
+		 * 
+		 * Call Movie Custom Post Type and Collections, Genres and Actors custom
+		 * Taxonomies' registering functions and flush rewrite rules to update
+		 * the permalinks.
 		 *
 		 * @since    1.0
 		 *
@@ -126,7 +144,7 @@ if ( ! class_exists( 'WPMovieLibrary_Trailers' ) ) :
 		 */
 		public function enqueue_styles() {
 
-			//wp_enqueue_style( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/css/lightbox.min.css', array(), WPMLLB_VERSION );
+			wp_enqueue_style( WPMLLB_SLUG, WPMLLB_URL . '/assets/css/public.css', array(), WPMLLB_VERSION );
 		}
 
 		/**
@@ -136,11 +154,23 @@ if ( ! class_exists( 'WPMovieLibrary_Trailers' ) ) :
 		 */
 		public function enqueue_scripts() {
 
-			//wp_enqueue_script( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/js/lightbox.min.js', array(), WPMLLB_VERSION, true );
-			//wp_enqueue_script( WPMLLB_SLUG . '-js', WPMLLB_URL . '/assets/js/wpml-lightbox.js', array( WPMLLB_SLUG . '-lightbox' ), WPMLLB_VERSION, true );
+			wp_enqueue_script( WPMLLB_SLUG, WPMLLB_URL . '/assets/js/public.js', array( 'jquery' ), WPMLLB_VERSION, true );
 		}
 
-		
+		/**
+		 * Load the plugin text domain for translation.
+		 *
+		 * @since    1.0
+		 */
+		public function load_plugin_textdomain() {
+
+			$domain = WPMLLB_SLUG;
+			$locale = apply_filters( 'plugin_locale', get_locale(), $domain );
+
+			load_textdomain( $domain, trailingslashit( WP_LANG_DIR ) . $domain . '/' . $domain . '-' . $locale . '.mo' );
+			load_plugin_textdomain( $domain, FALSE, basename( plugin_dir_path( dirname( __FILE__ ) ) ) . '/languages/' );
+
+		}
 
 		/**
 		 * Initializes variables
