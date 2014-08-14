@@ -41,7 +41,8 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-			//add_filters( '', array( $this, 'add_pposter_lightbox' ) );
+			add_filter( 'wpml_template_path', array( $this, 'add_images_lightbox' ), 10, 1 );
+			add_filter( 'wpml_template_path', array( $this, 'add_posters_lightbox' ), 10, 1 );
 		}
 
 		/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -146,7 +147,44 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 		public function enqueue_scripts() {
 
 			wp_enqueue_script( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/js/lightbox.min.js', array(), WPMLLB_VERSION, true );
-			//wp_enqueue_script( WPMLLB_SLUG . '-js', WPMLLB_URL . '/assets/js/wpml-lightbox.js', array( WPMLLB_SLUG . '-lightbox' ), WPMLLB_VERSION, true );
+		}
+
+		/**
+		 * Add LightBox to Movie Images Shortcode
+		 *
+		 * @since    1.0
+		 * 
+		 * @param    string    Shortcode's template path
+		 * 
+		 * @return   string    Edited template path
+		 */
+		public function add_images_lightbox( $template_path ) {
+
+			if ( is_admin() || false === strpos( $template_path, 'shortcodes/images.php' ) )
+				return $template_path;
+
+			$template_path = WPMLLB_PATH . 'views/shortcodes/images.php';
+
+			return $template_path;
+		}
+
+		/**
+		 * Add LightBox to Movie Posters Shortcode
+		 *
+		 * @since    1.0
+		 * 
+		 * @param    string    Shortcode's template path
+		 * 
+		 * @return   string    Edited template path
+		 */
+		public function add_posters_lightbox( $template_path ) {
+
+			if ( is_admin() || false === strpos( $template_path, 'shortcodes/poster.php' ) )
+				return $template_path;
+
+			$template_path = WPMLLB_PATH . 'views/shortcodes/poster.php';
+
+			return $template_path;
 		}
 
 		/**
