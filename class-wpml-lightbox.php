@@ -9,7 +9,7 @@
  * @copyright 2014 Charlie MERLAND
  */
 
-if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
+if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 
 	/**
 	* Plugin class
@@ -120,23 +120,13 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 		}
 
 		/**
-		 * Prepares a single blog to use the plugin
-		 *
-		 * @since    1.0
-		 *
-		 * @param    bool    $network_wide
-		 */
-		protected function single_activate( $network_wide ) {
-		}
-
-		/**
 		 * Register and enqueue public-facing style sheet.
 		 *
 		 * @since    1.0
 		 */
 		public function enqueue_styles() {
 
-			wp_enqueue_style( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/css/lightbox.min.css', array(), WPMLLB_VERSION );
+			wp_enqueue_style( WPMLLB_SLUG, WPMLLB_URL . '/vendor/css/lightbox.min.css', array(), WPMLLB_VERSION );
 		}
 
 		/**
@@ -146,7 +136,7 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 		 */
 		public function enqueue_scripts() {
 
-			wp_enqueue_script( WPMLLB_SLUG . '-lightbox', WPMLLB_URL . '/vendor/js/lightbox.min.js', array(), WPMLLB_VERSION, true );
+			wp_enqueue_script( WPMLLB_SLUG, WPMLLB_URL . '/vendor/js/lightbox.min.js', array(), WPMLLB_VERSION, true );
 		}
 
 		/**
@@ -192,8 +182,16 @@ if ( ! class_exists( 'WPMovieLibrary_LightBox' ) ) :
 		 *
 		 * @since    1.0
 		 */
-		public function init() {
-		}
+		public function init() {}
+
+		/**
+		 * Prepares a single blog to use the plugin
+		 *
+		 * @since    1.0
+		 *
+		 * @param    bool    $network_wide
+		 */
+		protected function single_activate( $network_wide ) {}
 
 	}
 endif;

@@ -20,6 +20,7 @@
  * Text Domain: wpml
  * License:     GPL-3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
+ * Domain Path: /languages
  * GitHub Plugin URI: https://github.com/Askelon/wpmovielibrary-lightbox
  */
 
