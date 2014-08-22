@@ -94,6 +94,18 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		}
 
 		/**
+		 * Prepares a single blog to use the plugin
+		 *
+		 * @since    1.0
+		 *
+		 * @param    bool    $network_wide
+		 */
+		protected function single_activate( $network_wide ) {
+
+			$this->update_cache();
+		}
+
+		/**
 		 * Fired when the plugin is deactivated.
 		 * 
 		 * When deactivatin/uninstalling WPML, adopt different behaviors depending
@@ -104,6 +116,8 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 * @since    1.0
 		 */
 		public function deactivate() {
+
+			$this->update_cache();
 		}
 
 		/**
@@ -178,20 +192,23 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		}
 
 		/**
+		 * Update the cache: remove all shortcodes transients so that
+		 * the new templates can be used.
+		 *
+		 * @since    1.1
+		 */
+		private function update_cache() {
+
+			if ( method_exists( 'WPML_Cache', 'clean_transient' ) )
+				WPML_Cache::clean_transient( $action = null, $force = true, $search = 'shortcode' );
+		}
+
+		/**
 		 * Initializes variables
 		 *
 		 * @since    1.0
 		 */
 		public function init() {}
-
-		/**
-		 * Prepares a single blog to use the plugin
-		 *
-		 * @since    1.0
-		 *
-		 * @param    bool    $network_wide
-		 */
-		protected function single_activate( $network_wide ) {}
 
 	}
 endif;

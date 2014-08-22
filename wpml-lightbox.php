@@ -14,7 +14,7 @@
  * Plugin Name: WPMovieLibrary-LightBox
  * Plugin URI:  http://wpmovielibrary.com
  * Description: Add a LightBox2 effect to WPMovieLibrary's Images and Posters
- * Version:     1.0
+ * Version:     1.1
  * Author:      Charlie MERLAND
  * Author URI:  http://www.caercam.org/
  * Text Domain: wpml
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'WPMLLB_NAME',                   'WPMovieLibrary-LightBox' );
-define( 'WPMLLB_VERSION',                '1.0' );
+define( 'WPMLLB_VERSION',                '1.1' );
 define( 'WPMLLB_SLUG',                   'wpml-lightbox' );
 define( 'WPMLLB_URL',                    plugins_url( basename( __DIR__ ) ) );
 define( 'WPMLLB_PATH',                   plugin_dir_path( __FILE__ ) );
