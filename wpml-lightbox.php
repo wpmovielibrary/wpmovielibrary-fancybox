@@ -2,7 +2,8 @@
 /**
  * WPMovieLibrary-LightBox
  *
- * Add a LightBox2 effect to WPMovieLibrary's Images and Posters
+ * Implements Lokesh Dhakar's LightBox2 jQuery effect for WPMovieLibrary Images
+ * and Posters Shortcodes
  *
  * @package   WPMovieLibrary-LightBox
  * @author    Charlie MERLAND <charlie@caercam.org>
@@ -12,16 +13,14 @@
  *
  * @wordpress-plugin
  * Plugin Name: WPMovieLibrary-LightBox
- * Plugin URI:  http://wpmovielibrary.com
- * Description: Add a LightBox2 effect to WPMovieLibrary's Images and Posters
+ * Plugin URI:  http://wpmovielibrary.com/extensions/wpmovielibrary-lightbox/
+ * Description: Implements Lokesh Dhakar's LightBox2 jQuery effect for WPMovieLibrary Images and Posters Shortcodes
  * Version:     1.1
  * Author:      Charlie MERLAND
  * Author URI:  http://www.caercam.org/
- * Text Domain: wpml
  * License:     GPL-3.0
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
- * Domain Path: /languages
- * GitHub Plugin URI: https://github.com/Askelon/wpmovielibrary-lightbox
+ * GitHub Plugin URI: https://github.com/CaerCam/wpmovielibrary-lightbox
  */
 
 // If this file is called directly, abort.
