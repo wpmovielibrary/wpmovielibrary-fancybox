@@ -15,7 +15,7 @@
  * Plugin Name: WPMovieLibrary-LightBox
  * Plugin URI:  http://wpmovielibrary.com/extensions/wpmovielibrary-lightbox/
  * Description: Implements Lokesh Dhakar's LightBox2 jQuery effect for WPMovieLibrary Images and Posters Shortcodes
- * Version:     1.1
+ * Version:     1.2
  * Author:      Charlie MERLAND
  * Author URI:  http://www.caercam.org/
  * License:     GPL-3.0
@@ -29,12 +29,12 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 define( 'WPMOLY_LB_NAME',                   'WPMovieLibrary-LightBox' );
-define( 'WPMOLY_LB_VERSION',                '1.1' );
+define( 'WPMOLY_LB_VERSION',                '1.2' );
 define( 'WPMOLY_LB_SLUG',                   'wpmoly-lightbox' );
 define( 'WPMOLY_LB_URL',                    plugins_url( basename( __DIR__ ) ) );
 define( 'WPMOLY_LB_PATH',                   plugin_dir_path( __FILE__ ) );
 define( 'WPMOLY_LB_REQUIRED_PHP_VERSION',   '5.3' );
-define( 'WPMOLY_LB_REQUIRED_WP_VERSION',    '3.6' );
+define( 'WPMOLY_LB_REQUIRED_WP_VERSION',    '3.8' );
 
 /**
  * Checks if the system requirements are met
