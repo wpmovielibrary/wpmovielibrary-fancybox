@@ -41,8 +41,8 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-			add_filter( 'wpml_template_path', array( $this, 'add_images_lightbox' ), 10, 1 );
-			add_filter( 'wpml_template_path', array( $this, 'add_posters_lightbox' ), 10, 1 );
+			add_filter( 'wpmoly_template_path', array( $this, 'add_images_lightbox' ), 10, 1 );
+			add_filter( 'wpmoly_template_path', array( $this, 'add_posters_lightbox' ), 10, 1 );
 		}
 
 		/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -54,10 +54,10 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		/**
 		 * Fired when the plugin is activated.
 		 * 
-		 * Restore previously converted contents. If WPML was previously
+		 * Restore previously converted contents. If WPMOLY was previously
 		 * deactivated or uninstalled using the 'convert' option, Movies and
 		 * Custom Taxonomies should still be in the database. If they are, we
-		 * convert them back to WPML contents.
+		 * convert them back to WPMOLY contents.
 		 * 
 		 * Call Movie Custom Post Type and Collections, Genres and Actors custom
 		 * Taxonomies' registering functions and flush rewrite rules to update
@@ -108,7 +108,7 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		/**
 		 * Fired when the plugin is deactivated.
 		 * 
-		 * When deactivatin/uninstalling WPML, adopt different behaviors depending
+		 * When deactivatin/uninstalling WPMOLY, adopt different behaviors depending
 		 * on user options. Movies and Taxonomies can be kept as they are,
 		 * converted to WordPress standars or removed. Default is conserve on
 		 * deactivation, convert on uninstall.
@@ -140,7 +140,7 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 */
 		public function enqueue_styles() {
 
-			wp_enqueue_style( WPMLLB_SLUG, WPMLLB_URL . '/vendor/css/lightbox.min.css', array(), WPMLLB_VERSION );
+			wp_enqueue_style( WPMOLY_LB_SLUG, WPMOLY_LB_URL . '/vendor/css/lightbox.min.css', array(), WPMOLY_LB_VERSION );
 		}
 
 		/**
@@ -150,7 +150,7 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 */
 		public function enqueue_scripts() {
 
-			wp_enqueue_script( WPMLLB_SLUG, WPMLLB_URL . '/vendor/js/lightbox.min.js', array(), WPMLLB_VERSION, true );
+			wp_enqueue_script( WPMOLY_LB_SLUG, WPMOLY_LB_URL . '/vendor/js/lightbox.min.js', array(), WPMOLY_LB_VERSION, true );
 		}
 
 		/**
@@ -167,7 +167,7 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 			if ( is_admin() || false === strpos( $template_path, 'shortcodes/images.php' ) )
 				return $template_path;
 
-			$template_path = WPMLLB_PATH . 'views/shortcodes/images.php';
+			$template_path = WPMOLY_LB_PATH . 'views/shortcodes/images.php';
 
 			return $template_path;
 		}
@@ -186,7 +186,7 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 			if ( is_admin() || false === strpos( $template_path, 'shortcodes/poster.php' ) )
 				return $template_path;
 
-			$template_path = WPMLLB_PATH . 'views/shortcodes/poster.php';
+			$template_path = WPMOLY_LB_PATH . 'views/shortcodes/poster.php';
 
 			return $template_path;
 		}
@@ -199,8 +199,8 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 */
 		private function update_cache() {
 
-			if ( method_exists( 'WPML_Cache', 'clean_transient' ) )
-				WPML_Cache::clean_transient( $action = null, $force = true, $search = 'shortcode' );
+			if ( method_exists( 'WPMOLY_Cache', 'clean_transient' ) )
+				WPMOLY_Cache::clean_transient( $action = null, $force = true, $search = 'shortcode' );
 		}
 
 		/**

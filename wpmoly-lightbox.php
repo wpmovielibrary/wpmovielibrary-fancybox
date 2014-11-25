@@ -28,13 +28,13 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'WPMLLB_NAME',                   'WPMovieLibrary-LightBox' );
-define( 'WPMLLB_VERSION',                '1.1' );
-define( 'WPMLLB_SLUG',                   'wpml-lightbox' );
-define( 'WPMLLB_URL',                    plugins_url( basename( __DIR__ ) ) );
-define( 'WPMLLB_PATH',                   plugin_dir_path( __FILE__ ) );
-define( 'WPMLLB_REQUIRED_PHP_VERSION',   '5.3' );
-define( 'WPMLLB_REQUIRED_WP_VERSION',    '3.6' );
+define( 'WPMOLY_LB_NAME',                   'WPMovieLibrary-LightBox' );
+define( 'WPMOLY_LB_VERSION',                '1.1' );
+define( 'WPMOLY_LB_SLUG',                   'wpmoly-lightbox' );
+define( 'WPMOLY_LB_URL',                    plugins_url( basename( __DIR__ ) ) );
+define( 'WPMOLY_LB_PATH',                   plugin_dir_path( __FILE__ ) );
+define( 'WPMOLY_LB_REQUIRED_PHP_VERSION',   '5.3' );
+define( 'WPMOLY_LB_REQUIRED_WP_VERSION',    '3.6' );
 
 /**
  * Checks if the system requirements are met
@@ -43,14 +43,14 @@ define( 'WPMLLB_REQUIRED_WP_VERSION',    '3.6' );
  * 
  * @return   bool    True if system requirements are met, false if not
  */
-function wpmllb_requirements_met() {
+function wpmolylb_requirements_met() {
 
 	global $wp_version;
 
-	if ( version_compare( PHP_VERSION, WPMLLB_REQUIRED_PHP_VERSION, '<' ) )
+	if ( version_compare( PHP_VERSION, WPMOLY_LB_REQUIRED_PHP_VERSION, '<' ) )
 		return false;
 
-	if ( version_compare( $wp_version, WPMLLB_REQUIRED_WP_VERSION, '<' ) )
+	if ( version_compare( $wp_version, WPMOLY_LB_REQUIRED_WP_VERSION, '<' ) )
 		return false;
 
 	return true;
@@ -61,10 +61,10 @@ function wpmllb_requirements_met() {
  * 
  * @since    1.0
  */
-function wpmllb_requirements_error() {
+function wpmolylb_requirements_error() {
 	global $wp_version;
 
-	require_once WPMLLB_PATH . '/views/requirements-error.php';
+	require_once WPMOLY_LB_PATH . '/views/requirements-error.php';
 }
 
 /*
@@ -73,14 +73,14 @@ function wpmllb_requirements_error() {
  * plugin requirements are met. Otherwise older PHP installations could crash
  * when trying to parse it.
  */
-if ( wpmllb_requirements_met() ) {
+if ( wpmolylb_requirements_met() ) {
 
-	require_once( WPMLLB_PATH . 'class-wpml-lightbox.php' );
+	require_once( WPMOLY_LB_PATH . 'class-wpmoly-lightbox.php' );
 
 	if ( class_exists( 'WPMovieLibrary_LightBox' ) ) {
-		$GLOBALS['wpmllb'] = new WPMovieLibrary_LightBox();
-		register_activation_hook(   __FILE__, array( $GLOBALS['wpmllb'], 'activate' ) );
-		register_deactivation_hook( __FILE__, array( $GLOBALS['wpmllb'], 'deactivate' ) );
+		$GLOBALS['wpmolylb'] = new WPMovieLibrary_LightBox();
+		register_activation_hook(   __FILE__, array( $GLOBALS['wpmolylb'], 'activate' ) );
+		register_deactivation_hook( __FILE__, array( $GLOBALS['wpmolylb'], 'deactivate' ) );
 	}
 }
 else {

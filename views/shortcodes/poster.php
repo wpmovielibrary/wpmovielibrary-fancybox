@@ -12,8 +12,8 @@
  */
 ?>
 
-	<div class="wpml_shortcode_div wpml_movie_poster wpml_movie_poster_<?php echo $size ?>">
-		<a href="<?php echo $poster['full'][0] ?>" data-lightbox="wpml-poster-<?php echo $movie_id ?>" data-title="">
+	<div class="wpmoly shortcode block <?php echo $size ?> poster">
+		<a class="wpmoly shortcode block <?php echo $size ?> poster link" href="<?php echo $poster['full'][0] ?>" data-lightbox="wpmoly-poster-<?php echo $movie_id ?>" data-title="">
 			<img src="<?php echo $poster['thumbnail'][0] ?>" width="<?php echo $poster['thumbnail'][1] ?>" height="<?php echo $poster['thumbnail'][2] ?>" alt="" />
 		</a>
 	</div>
