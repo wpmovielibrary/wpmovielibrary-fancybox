@@ -1,0 +1,1 @@
+(function($){$( '.wpmoly-fancybox' ).fancybox();})(jQuery);

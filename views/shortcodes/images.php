@@ -16,7 +16,7 @@
 
 <?php foreach ( $images as $image ) : ?>
 		<li class="wpmoly shortcode imported <?php echo $size ?> image">
-			<a class="wpmoly shortcode imported <?php echo $size ?> image link" href="<?php echo $image['full'][0]; ?>" data-lightbox="wpmoly-image-<?php echo $movie_id ?>" data-title="">
+			<a class="wpmoly shortcode imported <?php echo $size ?> image link wpmoly-fancybox" href="<?php echo $image['full'][0]; ?>" data-fancybox-group="wpmoly-image-<?php echo $movie_id ?>">
 				<img src="<?php echo $image['thumbnail'][0]; ?>" width="<?php echo $image['thumbnail'][1]; ?>" height="<?php echo $image['thumbnail'][2]; ?>" alt="" />
 			</a>
 		</li>

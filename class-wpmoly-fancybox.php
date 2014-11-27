@@ -1,23 +1,23 @@
 <?php
 /**
- * WPMovieLibrary-LightBox
+ * WPMovieLibrary-FancyBox
  *
- * @package   WPMovieLibrary-LightBox
+ * @package   WPMovieLibrary-FancyBox
  * @author    Charlie MERLAND <charlie@caercam.org>
  * @license   GPL-3.0
  * @link      http://www.caercam.org/
  * @copyright 2014 Charlie MERLAND
  */
 
-if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
+if ( ! class_exists( 'WPMovieLibrary-FancyBox' ) ) :
 
 	/**
 	* Plugin class
 	*
-	* @package WPMovieLibrary-LightBox
+	* @package WPMovieLibrary-FancyBox
 	* @author  Charlie MERLAND <charlie@caercam.org>
 	*/
-	class WPMovieLibrary_LightBox {
+	class WPMovieLibrary_FancyBox {
 
 		/**
 		 * Initialize the plugin by setting localization and loading public scripts
@@ -41,8 +41,8 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 
-			add_filter( 'wpmoly_template_path', array( $this, 'add_images_lightbox' ), 10, 1 );
-			add_filter( 'wpmoly_template_path', array( $this, 'add_posters_lightbox' ), 10, 1 );
+			add_filter( 'wpmoly_template_path', array( $this, 'add_images_fancybox' ), 10, 1 );
+			add_filter( 'wpmoly_template_path', array( $this, 'add_posters_fancybox' ), 10, 1 );
 		}
 
 		/** * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -140,7 +140,7 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 */
 		public function enqueue_styles() {
 
-			wp_enqueue_style( WPMOLY_LB_SLUG, WPMOLY_LB_URL . '/vendor/css/lightbox.min.css', array(), WPMOLY_LB_VERSION );
+			wp_enqueue_style( WPMOLY_FBOX_SLUG, WPMOLY_FBOX_URL . '/vendor/css/jquery.fancybox.css', array(), WPMOLY_FBOX_VERSION );
 		}
 
 		/**
@@ -150,11 +150,12 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 */
 		public function enqueue_scripts() {
 
-			wp_enqueue_script( WPMOLY_LB_SLUG, WPMOLY_LB_URL . '/vendor/js/lightbox.min.js', array(), WPMOLY_LB_VERSION, true );
+			wp_enqueue_script( WPMOLY_FBOX_SLUG . '-fancybox', WPMOLY_FBOX_URL . '/vendor/js/jquery.fancybox.pack.js', array( 'jquery' ), WPMOLY_FBOX_VERSION, true );
+			wp_enqueue_script( WPMOLY_FBOX_SLUG, WPMOLY_FBOX_URL . '/assets/js/wpmoly-fancybox.js', array( 'jquery', WPMOLY_FBOX_SLUG . '-fancybox' ), WPMOLY_FBOX_VERSION, true );
 		}
 
 		/**
-		 * Add LightBox to Movie Images Shortcode
+		 * Add FancyBox to Movie Images Shortcode
 		 *
 		 * @since    1.0
 		 * 
@@ -162,18 +163,18 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 * 
 		 * @return   string    Edited template path
 		 */
-		public function add_images_lightbox( $template_path ) {
+		public function add_images_fancybox( $template_path ) {
 
 			if ( is_admin() || false === strpos( $template_path, 'shortcodes/images.php' ) )
 				return $template_path;
 
-			$template_path = WPMOLY_LB_PATH . 'views/shortcodes/images.php';
+			$template_path = WPMOLY_FBOX_PATH . 'views/shortcodes/images.php';
 
 			return $template_path;
 		}
 
 		/**
-		 * Add LightBox to Movie Posters Shortcode
+		 * Add FancyBox to Movie Posters Shortcode
 		 *
 		 * @since    1.0
 		 * 
@@ -181,12 +182,12 @@ if ( ! class_exists( 'WPMovieLibrary-LightBox' ) ) :
 		 * 
 		 * @return   string    Edited template path
 		 */
-		public function add_posters_lightbox( $template_path ) {
+		public function add_posters_fancybox( $template_path ) {
 
 			if ( is_admin() || false === strpos( $template_path, 'shortcodes/poster.php' ) )
 				return $template_path;
 
-			$template_path = WPMOLY_LB_PATH . 'views/shortcodes/poster.php';
+			$template_path = WPMOLY_FBOX_PATH . 'views/shortcodes/poster.php';
 
 			return $template_path;
 		}
